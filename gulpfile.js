@@ -18,7 +18,7 @@ const bundleJs = (done) => {
       console.error(e); // jsの文法エラー等があった場合にコンソールに表示
       this.emit('end');
   })
-    .pipe(dest("dist/js")) // コンパイル後の出力先
+    .pipe(dest("./wp-content/themes/simple/assets/js")) // TODO: （環境に応じてパスを記述）コンパイル後の出力先
   done();
 };
 
@@ -37,19 +37,18 @@ const compileSass = (done) => {
     })
   ];
 
-  src('./src/scss/**/*.scss', { sourcemaps: true })
+  src('./wp-content/themes/simple/assets/scss/**/*.scss', { sourcemaps: true }) // TODO: （環境に応じてパスを記述）
     .pipe(plumber({ errorHandler: notify.onError('Error: <%= error.message %>') })) // エラーチェック
     .pipe(sass({ outputStyle: 'expanded' })) // expanded, nested, campact, compressedから選択
     .pipe(postcss(postcssPlugins))
-    .pipe(dest('./dist/css', { sourcemaps: './sourcemaps' })); // sourcemapsディレクトリを作成
+    .pipe(dest('./wp-content/themes/simple/assets/css', { sourcemaps: './sourcemaps' })); // TODO:  （環境に応じてパスを記述）sourcemapsディレクトリを作成する場所
   done();
   };
 
 // ローカルサーバー起動
 const buildServer = (done) => {
   browserSync.init({
-    port: 8080, // localhost:8080を開く
-    proxy: "http://localhost/web-compass.blog/", // ローカル環境で使用するURLを記述
+    proxy: "http://localhost/web-compass.blog/", // TODO: （環境に応じてパスを記述）ローカル環境で使用するURLを記述
     open: true, // ブラウザを自動で開く
     watchOptions: {
       debounceDelay: 1000, // 1秒間、タスクの再実行を抑制
@@ -66,8 +65,8 @@ const browserReload = done => {
 
 // 監視
 const watchFiles = () => {
-  watch( './src/scss/**/*.scss', series(compileSass, browserReload)) // scssが更新されたらcompileSass → browserReloadの順番で実行
-  watch( './src/js/**/*.js', series(bundleJs, browserReload)) // jsが更新されたらbundleJs → browserReloadの順番で実行
+  watch( './wp-content/themes/simple/assets/scss/*.scss', series(compileSass, browserReload)) // TODO: （環境に応じてパスを記述）scssが更新されたらcompileSass → browserReloadの順番で実行
+  watch( './wp-content/themes/simple/assets/js/**/*.js', series(bundleJs, browserReload)) // TODO: （環境に応じてパスを記述）jsが更新されたらbundleJs → browserReloadの順番で実行
 };
 
   module.exports = {
