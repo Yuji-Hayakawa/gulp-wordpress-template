@@ -49,7 +49,7 @@ const compileSass = (done) => {
 const buildServer = (done) => {
   browserSync.init({
     port: 8080, // localhost:8080を開く
-    server: { baseDir: './' }, // index.html（開きたいファイル）がどこにあるか
+    proxy: "http://localhost/web-compass.blog/", // ローカル環境で使用するURLを記述
     open: true, // ブラウザを自動で開く
     watchOptions: {
       debounceDelay: 1000, // 1秒間、タスクの再実行を抑制

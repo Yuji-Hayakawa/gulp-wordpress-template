@@ -1,1 +1,1 @@
-# gulp-template
+# gulp-wordpress-template
