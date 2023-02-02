@@ -48,6 +48,7 @@ const compileSass = (done) => {
 // ローカルサーバー起動
 const buildServer = (done) => {
   browserSync.init({
+    files: ["**/*"],
     proxy: "http://localhost/web-compass.blog/", // TODO: （環境に応じてパスを記述）ローカル環境で使用するURLを記述
     open: true, // ブラウザを自動で開く
     watchOptions: {
@@ -65,7 +66,7 @@ const browserReload = done => {
 
 // 監視
 const watchFiles = () => {
-  watch( './wp-content/themes/simple/assets/scss/*.scss', series(compileSass, browserReload)) // TODO: （環境に応じてパスを記述）scssが更新されたらcompileSass → browserReloadの順番で実行
+  watch( './wp-content/themes/simple/assets/scss/**/*.scss', series(compileSass, browserReload)) // TODO: （環境に応じてパスを記述）scssが更新されたらcompileSass → browserReloadの順番で実行
   watch( './wp-content/themes/simple/assets/js/**/*.js', series(bundleJs, browserReload)) // TODO: （環境に応じてパスを記述）jsが更新されたらbundleJs → browserReloadの順番で実行
 };
 
